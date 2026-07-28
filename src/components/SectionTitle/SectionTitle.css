@@ -1,0 +1,30 @@
+.section-title {
+  max-width: 720px;
+  margin-bottom: 55px;
+}
+
+.section-title--centered {
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-title__eyebrow {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--accent);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.section-title h2 {
+  margin-bottom: 18px;
+  font-size: clamp(2.4rem, 5vw, 4.5rem);
+  letter-spacing: -0.04em;
+}
+
+.section-title p {
+  color: var(--text);
+  line-height: 1.8;
+}

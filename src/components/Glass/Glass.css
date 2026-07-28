@@ -1,0 +1,18 @@
+.glass {
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--shadow-soft);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.glass--soft {
+  background: var(--glass-soft);
+}
+
+.glass--medium {
+  background: var(--glass-medium);
+}
+
+.glass--strong {
+  background: var(--glass-strong);
+}

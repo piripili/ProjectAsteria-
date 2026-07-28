@@ -1,0 +1,71 @@
+:root {
+  /* Fondos */
+
+  --color-midnight: #060d1b;
+  --color-deep-blue: #0b1730;
+  --color-surface: #111b31;
+  --color-surface-soft: #0d172a;
+
+  /* Identidad Asteria */
+
+  --color-aurora: #5c82ff;
+  --color-nebula: #a48be8;
+  --color-moon: #e5be73;
+  --color-sage: #84d3b5;
+  --color-rose: #d990c9;
+
+  /* Texto */
+
+  --color-text: #f6f7fb;
+  --color-text-soft: #c4cad6;
+  --color-text-muted: #949eb3;
+
+  /* Glass */
+
+  --glass-soft: rgba(255, 255, 255, 0.045);
+  --glass-medium: rgba(255, 255, 255, 0.075);
+  --glass-strong: rgba(255, 255, 255, 0.11);
+  --glass-border: rgba(255, 255, 255, 0.17);
+
+  /* Sombras */
+
+  --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.22);
+  --shadow-medium: 0 28px 70px rgba(0, 0, 0, 0.28);
+  --shadow-hero: 0 40px 120px rgba(0, 0, 0, 0.38);
+
+  /* Bordes */
+
+  --radius-sm: 12px;
+  --radius-md: 18px;
+  --radius-lg: 24px;
+  --radius-xl: 34px;
+  --radius-pill: 999px;
+
+  /* Espaciado */
+
+  --space-1: 8px;
+  --space-2: 16px;
+  --space-3: 24px;
+  --space-4: 32px;
+  --space-5: 48px;
+  --space-6: 64px;
+  --space-7: 96px;
+  --space-8: 120px;
+
+  /* Layout */
+
+  --container-width: 1440px;
+  --page-padding: clamp(22px, 5vw, 80px);
+
+  /* Tipografía */
+
+  --font-display: "Playfair Display", Georgia, serif;
+  --font-body: "Poppins", Arial, sans-serif;
+  --font-code: "Courier New", monospace;
+
+  /* Transiciones */
+
+  --transition-fast: 0.25s ease;
+  --transition-base: 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+  --transition-slow: 0.8s cubic-bezier(0.22, 0.61, 0.36, 1);
+}

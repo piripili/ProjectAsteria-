@@ -1,0 +1,67 @@
+.badge {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 10px 18px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 211, 255, 0.22);
+  border-radius: var(--radius-pill);
+  background: rgba(11, 20, 46, 0.7);
+  box-shadow: 0 14px 38px rgba(0, 0, 0, 0.23);
+  color: var(--color-text);
+  font-size: 0.84rem;
+  font-weight: 500;
+  white-space: nowrap;
+  backdrop-filter: blur(18px);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.badge::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  transition: opacity var(--transition-fast);
+}
+
+.badge:hover {
+  transform: translateY(-4px);
+  border-color: rgba(203, 189, 255, 0.48);
+  box-shadow:
+    0 18px 44px rgba(0, 0, 0, 0.3),
+    0 0 24px rgba(105, 119, 231, 0.2);
+}
+
+.badge:hover::before {
+  opacity: 1;
+}
+
+.badge__icon {
+  display: grid;
+  place-items: center;
+  color: #b59aec;
+  font-size: 1.25rem;
+}
+
+.badge--java .badge__icon {
+  color: #8ca9ff;
+}
+
+.badge--spring .badge__icon {
+  color: #8dd6aa;
+}
+
+.badge--react .badge__icon {
+  color: #7ccff5;
+}

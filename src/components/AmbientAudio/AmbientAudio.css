@@ -1,0 +1,109 @@
+.ambient-audio {
+  position: fixed;
+  right: clamp(18px, 3vw, 38px);
+  bottom: clamp(18px, 3vw, 32px);
+  z-index: 180;
+}
+
+.ambient-audio__button {
+  min-height: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px;
+  border: 1px solid rgba(206, 216, 245, 0.18);
+  border-radius: var(--radius-pill);
+  background: rgba(6, 13, 29, 0.76);
+  box-shadow:
+    0 16px 42px rgba(0, 0, 0, 0.28),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  color: var(--color-text-soft);
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition:
+    transform var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    box-shadow var(--transition-fast);
+}
+
+.ambient-audio__button:hover {
+  color: white;
+  border-color: rgba(164, 139, 232, 0.55);
+  transform: translateY(-4px);
+}
+
+.ambient-audio__button--active {
+  border-color: rgba(132, 211, 181, 0.5);
+  box-shadow:
+    0 18px 46px rgba(0, 0, 0, 0.3),
+    0 0 28px rgba(132, 211, 181, 0.1);
+}
+
+.ambient-audio__icon {
+  display: grid;
+  place-items: center;
+  color: var(--color-nebula);
+  font-size: 1.08rem;
+}
+
+.ambient-audio__button--active .ambient-audio__icon {
+  color: var(--color-sage);
+}
+
+.ambient-audio__label {
+  font-size: 0.72rem;
+  letter-spacing: 0.03em;
+}
+
+.ambient-audio__waves {
+  height: 16px;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-left: 2px;
+}
+
+.ambient-audio__waves i {
+  width: 2px;
+  height: 7px;
+  display: block;
+  border-radius: 99px;
+  background: var(--color-sage);
+  animation: audioWave 0.9s ease-in-out infinite alternate;
+}
+
+.ambient-audio__waves i:nth-child(2) {
+  height: 13px;
+  animation-delay: -0.3s;
+}
+
+.ambient-audio__waves i:nth-child(3) {
+  height: 9px;
+  animation-delay: -0.55s;
+}
+
+@keyframes audioWave {
+  from {
+    transform: scaleY(0.45);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+@media (max-width: 620px) {
+  .ambient-audio__button {
+    width: 50px;
+    min-width: 50px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .ambient-audio__label,
+  .ambient-audio__waves {
+    display: none;
+  }
+}
