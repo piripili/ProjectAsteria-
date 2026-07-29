@@ -1,109 +1,140 @@
 .ambient-audio {
   position: fixed;
-  right: clamp(18px, 3vw, 38px);
-  bottom: clamp(18px, 3vw, 32px);
-  z-index: 180;
-}
+  right: 24px;
+  bottom: 24px;
+  z-index: 100;
 
-.ambient-audio__button {
-  min-height: 50px;
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  padding: 10px 16px;
-  border: 1px solid rgba(206, 216, 245, 0.18);
-  border-radius: var(--radius-pill);
-  background: rgba(6, 13, 29, 0.76);
-  box-shadow:
-    0 16px 42px rgba(0, 0, 0, 0.28),
-    inset 0 1px 0 rgba(255, 255, 255, 0.05);
-  color: var(--color-text-soft);
+
+  min-height: 48px;
+  padding: 0 18px;
+
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px;
+
+  background: rgba(8, 14, 31, 0.76);
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-family: inherit;
+  font-size: 0.9rem;
+  font-weight: 500;
+
   cursor: pointer;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  transition:
-    transform var(--transition-fast),
-    border-color var(--transition-fast),
-    color var(--transition-fast),
-    box-shadow var(--transition-fast);
-}
 
-.ambient-audio__button:hover {
-  color: white;
-  border-color: rgba(164, 139, 232, 0.55);
-  transform: translateY(-4px);
-}
-
-.ambient-audio__button--active {
-  border-color: rgba(132, 211, 181, 0.5);
   box-shadow:
-    0 18px 46px rgba(0, 0, 0, 0.3),
-    0 0 28px rgba(132, 211, 181, 0.1);
+    0 12px 35px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+
+  transition:
+    transform 0.25s ease,
+    border-color 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.ambient-audio:hover {
+  transform: translateY(-3px);
+
+  border-color: rgba(197, 181, 255, 0.45);
+
+  background: rgba(16, 23, 48, 0.9);
+
+  color: #ffffff;
+
+  box-shadow:
+    0 16px 40px rgba(0, 0, 0, 0.28),
+    0 0 24px rgba(136, 112, 255, 0.09);
+}
+
+.ambient-audio:focus-visible {
+  outline: 2px solid rgba(197, 181, 255, 0.75);
+  outline-offset: 4px;
+}
+
+.ambient-audio--active {
+  border-color: rgba(197, 181, 255, 0.5);
+
+  background: rgba(28, 28, 62, 0.9);
+
+  color: #ffffff;
 }
 
 .ambient-audio__icon {
-  display: grid;
-  place-items: center;
-  color: var(--color-nebula);
-  font-size: 1.08rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #c8b7ff;
+
+  font-size: 1.1rem;
 }
 
-.ambient-audio__button--active .ambient-audio__icon {
-  color: var(--color-sage);
-}
-
-.ambient-audio__label {
-  font-size: 0.72rem;
-  letter-spacing: 0.03em;
+.ambient-audio__text {
+  white-space: nowrap;
 }
 
 .ambient-audio__waves {
-  height: 16px;
-  display: flex;
+  display: none;
   align-items: center;
-  gap: 2px;
-  margin-left: 2px;
+  gap: 3px;
+
+  height: 18px;
 }
 
-.ambient-audio__waves i {
+.ambient-audio--active .ambient-audio__waves {
+  display: inline-flex;
+}
+
+.ambient-audio__waves span {
   width: 2px;
   height: 7px;
-  display: block;
-  border-radius: 99px;
-  background: var(--color-sage);
-  animation: audioWave 0.9s ease-in-out infinite alternate;
+
+  border-radius: 999px;
+
+  background: #c8b7ff;
+
+  animation: ambient-wave 0.8s ease-in-out infinite alternate;
 }
 
-.ambient-audio__waves i:nth-child(2) {
+.ambient-audio__waves span:nth-child(2) {
   height: 13px;
-  animation-delay: -0.3s;
+  animation-delay: 0.15s;
 }
 
-.ambient-audio__waves i:nth-child(3) {
+.ambient-audio__waves span:nth-child(3) {
   height: 9px;
-  animation-delay: -0.55s;
+  animation-delay: 0.3s;
 }
 
-@keyframes audioWave {
+@keyframes ambient-wave {
   from {
-    transform: scaleY(0.45);
+    transform: scaleY(0.55);
+    opacity: 0.55;
   }
 
   to {
     transform: scaleY(1);
+    opacity: 1;
   }
 }
 
-@media (max-width: 620px) {
-  .ambient-audio__button {
-    width: 50px;
-    min-width: 50px;
-    padding: 0;
-    justify-content: center;
+@media (max-width: 600px) {
+  .ambient-audio {
+    right: 16px;
+    bottom: 16px;
+
+    min-height: 44px;
+    padding: 0 14px;
   }
 
-  .ambient-audio__label,
-  .ambient-audio__waves {
+  .ambient-audio__text {
     display: none;
   }
 }

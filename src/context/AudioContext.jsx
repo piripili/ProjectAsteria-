@@ -1,8 +1,6 @@
 import {
   createContext,
-  useCallback,
   useContext,
-  useEffect,
   useMemo,
   useRef,
   useState,
@@ -14,95 +12,102 @@ export function AudioProvider({ children }) {
   const introAudioRef = useRef(null);
   const ambienceAudioRef = useRef(null);
 
-  const [isAmbiencePlaying, setIsAmbiencePlaying] = useState(false);
-  const [hasEntered, setHasEntered] = useState(false);
+  const [isAmbiencePlaying, setIsAmbiencePlaying] =
+    useState(false);
 
-  useEffect(() => {
-    const introAudio = introAudioRef.current;
-    const ambienceAudio = ambienceAudioRef.current;
+  const baseUrl = import.meta.env.BASE_URL;
 
-    if (introAudio) {
-      introAudio.volume = 0.4;
-    }
+  const playIntro = async () => {
+    const audio = introAudioRef.current;
 
-    if (ambienceAudio) {
-      ambienceAudio.volume = 0.12;
-    }
-
-    return () => {
-      introAudio?.pause();
-      ambienceAudio?.pause();
-    };
-  }, []);
-
-  const playIntro = useCallback(async () => {
-    const introAudio = introAudioRef.current;
-
-    if (!introAudio) return;
+    if (!audio) return;
 
     try {
-      introAudio.currentTime = 0;
-      await introAudio.play();
-    } catch (error) {
-      console.warn("El navegador bloqueó el sonido inicial:", error);
-    }
-  }, []);
+      audio.currentTime = 0;
+      audio.volume = 0.45;
 
-  const enterAsteria = useCallback(async () => {
-    setHasEntered(true);
+      await audio.play();
+    } catch (error) {
+      console.warn(
+        "No fue posible reproducir el audio de introducción:",
+        error
+      );
+    }
+  };
+
+  const playAmbience = async () => {
+    const audio = ambienceAudioRef.current;
+
+    if (!audio) return;
+
+    try {
+      audio.volume = 0.22;
+
+      await audio.play();
+
+      setIsAmbiencePlaying(true);
+    } catch (error) {
+      console.error(
+        "No fue posible reproducir la atmósfera:",
+        error
+      );
+    }
+  };
+
+  const pauseAmbience = () => {
+    const audio = ambienceAudioRef.current;
+
+    if (!audio) return;
+
+    audio.pause();
+
+    setIsAmbiencePlaying(false);
+  };
+
+  const toggleAmbience = async () => {
+    const audio = ambienceAudioRef.current;
+
+    if (!audio) return;
+
+    if (audio.paused) {
+      await playAmbience();
+    } else {
+      pauseAmbience();
+    }
+  };
+
+  const enterAsteria = async () => {
     await playIntro();
-  }, [playIntro]);
-
-  const toggleAmbience = useCallback(async () => {
-    const ambienceAudio = ambienceAudioRef.current;
-
-    if (!ambienceAudio) return;
-
-    try {
-      if (ambienceAudio.paused) {
-        await ambienceAudio.play();
-        setIsAmbiencePlaying(true);
-      } else {
-        ambienceAudio.pause();
-        setIsAmbiencePlaying(false);
-      }
-    } catch (error) {
-      console.warn("No se pudo reproducir el ambiente:", error);
-      setIsAmbiencePlaying(false);
-    }
-  }, []);
+  };
 
   const value = useMemo(
     () => ({
-      hasEntered,
-      isAmbiencePlaying,
       enterAsteria,
+      playIntro,
+      playAmbience,
+      pauseAmbience,
       toggleAmbience,
+      isAmbiencePlaying,
     }),
-    [
-      hasEntered,
-      isAmbiencePlaying,
-      enterAsteria,
-      toggleAmbience,
-    ],
+    [isAmbiencePlaying]
   );
 
   return (
     <AudioContext.Provider value={value}>
+      {children}
+
       <audio
         ref={introAudioRef}
-        src="/audio/asteria-intro.mp3"
+        src={`${baseUrl}audio/asteria-intro.mp3`}
         preload="auto"
       />
 
       <audio
         ref={ambienceAudioRef}
-        src="/audio/asteria-ambience.mp3"
+        src={`${baseUrl}audio/asteria-ambience.mp3`}
         preload="metadata"
         loop
       />
-
-      {children}
     </AudioContext.Provider>
   );
 }
@@ -112,7 +117,7 @@ export function useAudio() {
 
   if (!context) {
     throw new Error(
-      "useAudio debe utilizarse dentro de AudioProvider.",
+      "useAudio debe utilizarse dentro de AudioProvider."
     );
   }
 

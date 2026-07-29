@@ -20,9 +20,18 @@ function Skills() {
             <motion.article
               className="skills__group"
               key={group.category}
-              initial={{ opacity: 0, y: 35 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.3 }}
+              initial={{
+                opacity: 0,
+                y: 35,
+              }}
+              whileInView={{
+                opacity: 1,
+                y: 0,
+              }}
+              viewport={{
+                once: true,
+                amount: 0.3,
+              }}
               transition={{
                 duration: 0.65,
                 delay: groupIndex * 0.1,
@@ -34,7 +43,13 @@ function Skills() {
                 {group.skills.map((skill) => (
                   <motion.span
                     key={skill}
-                    whileHover={{ y: -4, scale: 1.04 }}
+                    whileHover={{
+                      y: -4,
+                      scale: 1.04,
+                    }}
+                    transition={{
+                      duration: 0.2,
+                    }}
                   >
                     {skill}
                   </motion.span>
