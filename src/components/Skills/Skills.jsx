@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 import { skillGroups } from "../../data/skills";
 import SectionTitle from "../SectionTitle/SectionTitle";
-import "./Skills.css";
+import "./skills.css";
 
 function Skills() {
   return (
