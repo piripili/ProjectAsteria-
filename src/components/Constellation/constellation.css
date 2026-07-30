@@ -1,0 +1,670 @@
+.constellation {
+  position: relative;
+  overflow: hidden;
+
+  padding: 28px;
+
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 30px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.065),
+      rgba(255, 255, 255, 0.018)
+    ),
+    rgba(5, 9, 24, 0.72);
+
+  box-shadow:
+    0 26px 70px rgba(0, 0, 0, 0.23),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.constellation::before {
+  content: "";
+  position: absolute;
+  top: -180px;
+  left: 50%;
+
+  width: 420px;
+  height: 420px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    var(--system-glow),
+    transparent 66%
+  );
+
+  opacity: 0.18;
+  transform: translateX(-50%);
+
+  pointer-events: none;
+}
+
+.constellation__header {
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.constellation__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 42px;
+  height: 42px;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--system-color) 45%,
+    transparent
+  );
+  border-radius: 50%;
+
+  color: var(--system-color);
+
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.constellation__header h3 {
+  margin: 0 0 8px;
+
+  color: rgba(255, 255, 255, 0.96);
+
+  font-size: clamp(1.35rem, 2vw, 1.75rem);
+  font-weight: 600;
+}
+
+.constellation__header p {
+  max-width: 470px;
+  margin: 0;
+
+  color: rgba(225, 230, 245, 0.64);
+
+  font-size: 0.94rem;
+  line-height: 1.65;
+}
+
+.constellation__universe {
+  position: relative;
+
+  width: min(100%, 430px);
+  height: 430px;
+  margin: 18px auto 8px;
+
+  isolation: isolate;
+}
+
+.constellation__orbit {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+
+  transform: translate(-50%, -50%);
+
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.constellation:hover .constellation__orbit {
+  border-color: color-mix(
+    in srgb,
+    var(--system-color) 25%,
+    transparent
+  );
+}
+
+.constellation__orbit--one {
+  width: 172px;
+  height: 172px;
+}
+
+.constellation__orbit--two {
+  width: 272px;
+  height: 272px;
+}
+
+.constellation__orbit--three {
+  width: 348px;
+  height: 348px;
+}
+
+.constellation__sun {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 4;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 96px;
+  height: 96px;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--system-color) 50%,
+    transparent
+  );
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 35% 30%,
+    rgba(255, 255, 255, 0.95),
+    var(--system-color) 18%,
+    rgba(18, 20, 48, 0.9) 68%
+  );
+
+  box-shadow:
+    0 0 26px var(--system-glow),
+    0 0 70px color-mix(
+      in srgb,
+      var(--system-color) 18%,
+      transparent
+    );
+
+  transform: translate(-50%, -50%);
+}
+
+.constellation__sun::before,
+.constellation__sun::after {
+  content: "";
+  position: absolute;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--system-color) 30%,
+    transparent
+  );
+  border-radius: 50%;
+}
+
+.constellation__sun::before {
+  inset: -10px;
+}
+
+.constellation__sun::after {
+  inset: -19px;
+
+  opacity: 0.45;
+}
+
+.constellation__sun-core {
+  position: absolute;
+  inset: 10px;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle,
+    rgba(255, 255, 255, 0.58),
+    transparent 65%
+  );
+
+  animation: sun-pulse 3.5s ease-in-out infinite;
+}
+
+.constellation__sun-label {
+  position: relative;
+  z-index: 2;
+
+  max-width: 74px;
+
+  color: rgba(255, 255, 255, 0.96);
+
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.planet {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 6;
+
+  width: 0;
+  height: 0;
+  padding: 0;
+
+  border: 0;
+  background: transparent;
+
+  cursor: pointer;
+}
+
+.planet__position {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: block;
+
+  transform:
+    rotate(var(--planet-angle))
+    translateX(var(--orbit-radius))
+    rotate(calc(var(--planet-angle) * -1));
+}
+
+.planet__body {
+  position: absolute;
+  top: calc(var(--planet-size) / -2);
+  left: calc(var(--planet-size) / -2);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: var(--planet-size);
+  height: var(--planet-size);
+
+  overflow: hidden;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--planet-color) 55%,
+    white 10%
+  );
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(255, 255, 255, 0.92),
+      var(--planet-color) 18%,
+      rgba(15, 19, 45, 0.96) 68%
+    );
+
+  box-shadow:
+    0 0 17px var(--planet-glow),
+    inset -10px -12px 18px rgba(0, 0, 0, 0.24);
+
+  animation: planet-float 4.2s ease-in-out infinite;
+
+  transition:
+    transform 0.28s ease,
+    border-color 0.28s ease,
+    box-shadow 0.28s ease,
+    filter 0.28s ease;
+}
+
+.planet:nth-of-type(2n) .planet__body {
+  animation-delay: -1.4s;
+}
+
+.planet:nth-of-type(3n) .planet__body {
+  animation-delay: -2.6s;
+}
+
+.planet:hover .planet__body,
+.planet:focus-visible .planet__body,
+.planet--active .planet__body {
+  border-color: rgba(255, 255, 255, 0.85);
+
+  box-shadow:
+    0 0 22px var(--planet-glow),
+    0 0 48px var(--planet-glow),
+    inset -10px -12px 18px rgba(0, 0, 0, 0.18);
+
+  filter: brightness(1.14);
+
+  transform: scale(1.16);
+}
+
+.planet:focus-visible {
+  outline: none;
+}
+
+.planet__shine {
+  position: absolute;
+  top: 12%;
+  left: 19%;
+
+  width: 28%;
+  height: 18%;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.38);
+
+  filter: blur(3px);
+  transform: rotate(-25deg);
+}
+
+.planet__name {
+  position: relative;
+  z-index: 2;
+
+  max-width: 85%;
+
+  color: #ffffff;
+
+  font-size: clamp(0.56rem, 1.2vw, 0.72rem);
+  font-weight: 700;
+  line-height: 1.1;
+  text-align: center;
+
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+}
+
+.constellation__details {
+  position: relative;
+  z-index: 5;
+
+  min-height: 208px;
+  padding: 24px;
+
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.035);
+
+  transition:
+    border-color 0.3s ease,
+    background 0.3s ease,
+    transform 0.3s ease;
+}
+
+.constellation__details--visible {
+  border-color: color-mix(
+    in srgb,
+    var(--system-color) 35%,
+    transparent
+  );
+
+  background: color-mix(
+    in srgb,
+    var(--system-color) 6%,
+    rgba(255, 255, 255, 0.035)
+  );
+
+  transform: translateY(-3px);
+}
+
+.constellation__details-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.constellation__details-planet {
+  width: 42px;
+  height: 42px;
+
+  flex-shrink: 0;
+
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 25%,
+    white,
+    var(--system-color) 22%,
+    rgba(14, 17, 42, 0.95) 72%
+  );
+
+  box-shadow: 0 0 19px var(--system-glow);
+}
+
+.constellation__details-label {
+  display: block;
+  margin-bottom: 3px;
+
+  color: var(--system-color);
+
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.constellation__details h4 {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.97);
+
+  font-size: 1.25rem;
+}
+
+.constellation__details > p {
+  margin: 17px 0 0;
+
+  color: rgba(229, 233, 247, 0.72);
+
+  font-size: 0.91rem;
+  line-height: 1.7;
+}
+
+.constellation__projects {
+  margin-top: 19px;
+}
+
+.constellation__projects > span {
+  display: block;
+  margin-bottom: 10px;
+
+  color: rgba(255, 255, 255, 0.48);
+
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.constellation__project-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.constellation__project {
+  display: inline-flex;
+  align-items: center;
+
+  padding: 7px 11px;
+
+  border: 1px solid color-mix(
+    in srgb,
+    var(--system-color) 26%,
+    transparent
+  );
+  border-radius: 999px;
+
+  background: color-mix(
+    in srgb,
+    var(--system-color) 8%,
+    transparent
+  );
+
+  color: rgba(255, 255, 255, 0.76);
+
+  font-size: 0.74rem;
+}
+
+.constellation__details-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+
+  min-height: 158px;
+
+  text-align: center;
+}
+
+.constellation__details-placeholder p {
+  max-width: 270px;
+  margin: 0;
+
+  color: rgba(229, 233, 247, 0.46);
+
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+
+.constellation__details-symbol {
+  color: var(--system-color);
+
+  font-size: 1.35rem;
+
+  animation: star-breathe 2.7s ease-in-out infinite;
+}
+
+.constellation__stars span {
+  position: absolute;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.8);
+
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+
+  animation: star-breathe 3s ease-in-out infinite;
+}
+
+.constellation__stars span:nth-child(1) {
+  top: 12%;
+  left: 21%;
+}
+
+.constellation__stars span:nth-child(2) {
+  top: 22%;
+  right: 12%;
+
+  animation-delay: -1s;
+}
+
+.constellation__stars span:nth-child(3) {
+  top: 53%;
+  left: 7%;
+
+  animation-delay: -2s;
+}
+
+.constellation__stars span:nth-child(4) {
+  right: 8%;
+  bottom: 27%;
+}
+
+.constellation__stars span:nth-child(5) {
+  bottom: 11%;
+  left: 29%;
+
+  animation-delay: -1.5s;
+}
+
+.constellation__stars span:nth-child(6) {
+  right: 31%;
+  bottom: 6%;
+
+  animation-delay: -0.7s;
+}
+
+@keyframes planet-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-7px);
+  }
+}
+
+@keyframes sun-pulse {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes star-breathe {
+  0%,
+  100% {
+    opacity: 0.28;
+    transform: scale(0.75);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.3);
+  }
+}
+
+@media (max-width: 650px) {
+  .constellation {
+    padding: 22px 16px;
+    border-radius: 24px;
+  }
+
+  .constellation__header {
+    padding: 0 6px;
+  }
+
+  .constellation__universe {
+    height: 370px;
+    margin-top: 12px;
+
+    transform: scale(0.84);
+    transform-origin: center center;
+  }
+
+  .constellation__details {
+    min-height: 220px;
+    padding: 21px;
+  }
+}
+
+@media (max-width: 420px) {
+  .constellation__universe {
+    width: 410px;
+    margin-left: 50%;
+
+    transform: translateX(-50%) scale(0.73);
+  }
+
+  .constellation__header p {
+    font-size: 0.86rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .planet__body,
+  .constellation__sun-core,
+  .constellation__stars span,
+  .constellation__details-symbol {
+    animation: none;
+  }
+
+  .planet__body,
+  .constellation__details {
+    transition: none;
+  }
+}
