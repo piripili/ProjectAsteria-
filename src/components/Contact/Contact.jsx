@@ -8,15 +8,17 @@ import {
 } from "react-icons/fi";
 
 import SectionTitle from "../SectionTitle/SectionTitle";
+import { contactLinks as links } from "../../data/contact";
+
 import "./Contact.css";
 
-const contactLinks = [
+const contactOptions = [
   {
     id: "github",
     title: "GitHub",
     description:
       "Explora el código, los procesos y los proyectos detrás de Asteria.",
-    href: "https://github.com/piripili",
+    href: links.github,
     label: "Explorar repositorios",
     icon: FiGithub,
   },
@@ -25,7 +27,7 @@ const contactLinks = [
     title: "LinkedIn",
     description:
       "Conoce mi trayectoria profesional y acompaña mi transición hacia tecnología.",
-    href: "https://www.linkedin.com/in/mar%C3%ADa-adriana-contreras-soto/",
+    href: links.linkedin,
     label: "Ver perfil profesional",
     icon: FiLinkedin,
   },
@@ -34,7 +36,7 @@ const contactLinks = [
     title: "Correo",
     description:
       "Conversemos sobre oportunidades, colaboración o una nueva idea.",
-    href: "https://mail.google.com/mail/?view=cm&fs=1&to=maadri.contreras@gmail.com&su=Contacto%20desde%20Project%20Asteria",
+    href: links.email,
     label: "Enviar un mensaje",
     icon: FiMail,
   },
@@ -45,9 +47,11 @@ const cardVariants = {
     opacity: 0,
     y: 35,
   },
+
   visible: (index) => ({
     opacity: 1,
     y: 0,
+
     transition: {
       duration: 0.65,
       delay: index * 0.12,
@@ -59,8 +63,15 @@ const cardVariants = {
 function Contact() {
   return (
     <section className="section contact" id="contacto">
-      <div className="contact__aurora contact__aurora--blue" />
-      <div className="contact__aurora contact__aurora--purple" />
+      <div
+        className="contact__aurora contact__aurora--blue"
+        aria-hidden="true"
+      />
+
+      <div
+        className="contact__aurora contact__aurora--purple"
+        aria-hidden="true"
+      />
 
       <div className="container contact__container">
         <SectionTitle
@@ -70,7 +81,7 @@ function Contact() {
         />
 
         <div className="contact__grid">
-          {contactLinks.map((item, index) => {
+          {contactOptions.map((item, index) => {
             const Icon = item.icon;
 
             return (
@@ -91,6 +102,7 @@ function Contact() {
                 }}
                 whileHover={{
                   y: -9,
+
                   transition: {
                     duration: 0.25,
                   },
@@ -116,9 +128,7 @@ function Contact() {
                   <p>{item.description}</p>
                 </div>
 
-                <span className="contact-card__link">
-                  {item.label}
-                </span>
+                <span className="contact-card__link">{item.label}</span>
               </motion.a>
             );
           })}
@@ -160,11 +170,13 @@ function Contact() {
 
           <a
             className="contact__email-button"
-            href="https://mail.google.com/mail/?view=cm&fs=1&to=maadri.contreras@gmail.com&su=Contacto%20desde%20Project%20Asteria"
+            href={links.email}
             target="_blank"
             rel="noopener noreferrer"
+            aria-label={`Enviar correo a ${links.emailAddress}`}
           >
             <FiMail aria-hidden="true" />
+
             <span>Escríbeme</span>
           </a>
         </motion.div>

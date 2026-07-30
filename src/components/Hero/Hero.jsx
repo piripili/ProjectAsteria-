@@ -14,13 +14,19 @@ function Hero() {
         <HeroPortrait />
       </div>
 
-      <a href="#trayectoria" className="hero__scroll">
-        <span className="hero__scroll-mouse">
+      <a
+        href="#trayectoria"
+        className="hero__scroll"
+        aria-label="Ir a la sección de trayectoria"
+      >
+        <span className="hero__scroll-mouse" aria-hidden="true">
           <span />
         </span>
 
         <span>Descubre mi historia</span>
-        <span className="hero__scroll-arrow">↓</span>
+        <span className="hero__scroll-arrow" aria-hidden="true">
+          ↓
+        </span>
       </a>
     </section>
   );
